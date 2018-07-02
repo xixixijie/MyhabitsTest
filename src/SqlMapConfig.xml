@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration> 
+    
+	<!-- 
+	配置文件
+	1.头文件
+	2.处理指令部分
+	3.元素部分
+	 -->
+	<!--properties 配置可使用的消息资源文件
+	resource的值 文件 相对src路径-->
+	<properties resource="db.properties">
+		<property name="" value="" />
+	</properties>
+	<!--
+		settings元素：配置程序优化项
+	-->
+	<!--<settings>-->
+		<!--<setting name="maxTransaction" value="5"/>-->
+	<!--</settings>-->
+
+
+	<!--
+    配置类别名
+    内置类别名 int long string 等
+	-->
+	<typeAliases>
+		<typeAlias type="mybatis.bean.UserInfo" alias="UserInfo"/>
+		<!--组件扫描生成，默认类别名即类名-->
+		<package name="mybatis.bean"/>
+	</typeAliases>
+
+	<!--可以配置多个environment，连接多个数据库-->
+	<!--通过default选择哪个开发环境-->
+	 <environments default="oracle">
+	     <environment id="oracle">
+	         <!-- 配置事务管理的方式
+	         	jdbc：原始方式进行事务的管理
+	         	managed：容器去进行事务管理
+	         -->
+	         <transactionManager type="jdbc"/>
+
+	        <!-- 配置数据源
+	         	type：指定连接管理的方式
+	         	pooled 以数据库连接池的方式进行管理
+	         	JNDI：使用第三方数据库连接池进行连接的管理
+	         -->
+	         <dataSource type="POOLED">
+	             <property name="driver" value="${dbdriver}" />
+	              <property name="url" value="${dburl}" />
+	              <property name="username" value="${dbuser}" />
+	              <property name="password" value="${dbpassword}" />
+	             
+	         </dataSource>
+	     </environment>
+	     
+	     
+	 </environments>
+
+	<!--用来注入sql映射文件-->
+	 <mappers >
+		 <!--resource要注入的sql映射文件 相对于src的路径-->
+	     <mapper resource="mybatis/dao/userInfoDAO.xml"/>
+	 </mappers>
+	 
+</configuration>  
+
+
+
+
+
